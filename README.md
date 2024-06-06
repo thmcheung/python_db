@@ -1,1 +1,1 @@
-In this project, I will be building a fully functional relational database using Python that executes SQL statements. This is a toy project that will help me understand relational databases more and potentially help me in my future career in technology.
+In this project, I will be building a fully functional relational database using Python that executes SQL statements. This is a project that will help me understand relational databases more and practice my programming/engineering skills.
