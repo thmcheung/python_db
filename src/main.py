@@ -6,15 +6,14 @@
 # 4 : syntax error
 # -1 : success quit
 import compiler
+import backend
 
 if __name__ == '__main__':
+    t = backend.table()
     while True:
         statement = input("db > ")
-        feedback = compiler.process(statement)
-        if feedback == 0:
-            print("success")
-            #do what is meant to do
-        elif feedback == 1:
+        feedback = compiler.process(statement, t)
+        if feedback == 1:
             print("failure")
         elif feedback == 2:
             print("unrecognized meta command", statement)

@@ -5,6 +5,7 @@
 # 4 : syntax error
 # -1 : success quit
 import re
+import backend
 
 def compare(a, b):
     #Compares lower case
@@ -22,22 +23,23 @@ def run_meta_statement(statement):
         case _:
             return 2 #unrecognized meta command
 
-def run_sql(statement):
+def execute(statement, table):
     ar = re.split(r'\s+', statement.strip())
-    if len(ar) < 4: 
-        return 4
     if compare(ar[0], "insert"):
-        #do insert
-        print("delete statement detected")
-        return 0
+        if len(ar) < 4:
+            return 4
+        else:
+            r = backend.row(ar[1], ar[2], ar[3])
+            table.add(r)
+            return 0
     elif compare(ar[0], "select"):
-        #do select
-        print("select statement detected")
+        for r in table.rows:
+            print(r.id, r.username, r.email)
         return 0
     return 3
 
-def process(statement):
+def process(statement, table):
     if statement[0] == '.':
         return run_meta_statement(statement)
     else:
-        return run_sql(statement)
+        return execute(statement, table)
