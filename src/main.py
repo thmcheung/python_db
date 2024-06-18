@@ -9,7 +9,7 @@ import compiler
 import backend
 
 if __name__ == '__main__':
-    t = backend.table()
+    t = backend.db_open()
     while True:
         statement = input("db > ")
         feedback = compiler.process(statement, t)
