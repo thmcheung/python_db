@@ -8,15 +8,22 @@
 
 import os
 
-global TABLE_MAX_PAGEs, ROW_SIZE
-TABLE_MAX_PAGES = 4096
+global PAGE_SIZE, TABLE_MAX_PAGES, ROW_SIZE
+PAGE_SIZE = 4096
+TABLE_MAX_PAGES = 40
+TABLE_MAX_ROWS = 40
 ROW_SIZE = 40
+
 
 class pager:
     def __init__(self, file_descriptor: int, file_length: int, pages: list):
         self.file_descriptor = file_descriptor
         self.file_length = file_length
         self.pages = pages
+    
+    def flush(self, page_num, size):
+        os.lseek(self.file_descriptor, page_num * PAGE_SIZE, os.SEEK_SET)
+        os.write(self.file_descriptor, self.pages[page_num][:size])
 
 class table:
     #this will be a b-tree later
